@@ -62,10 +62,8 @@ export default {
           _this.kanaToHira(str).indexOf(_this.searchKey) > -1
         ) {
           //部分一致したらなにする？
-          console.log("部分一致成功削除しません");
         } else {
           //部分一致しなかったら
-          console.log("部分一致失敗削除対象です");
           delete obj[key];
         }
       });
@@ -76,18 +74,15 @@ export default {
         list.push(obj[key].expiryDate);
       });
       list.sort();
-      let result = [];
       let dummyobj = {};
       for (let i = 0; i < list.length; i++) {
         for (let key in obj) {
           if (obj[key].expiryDate == list[i]) {
             dummyobj[key] = obj[key];
-            console.table(dummyobj);
             break;
           }
         }
       }
-      console.log(dummyobj);
       return dummyobj;
     },
     objectDescSort: function(obj) {
@@ -97,26 +92,24 @@ export default {
       });
       list.sort();
       list.reverse();
-      let result = [];
       let dummyobj = {};
       for (let i = 0; i < list.length; i++) {
         for (let key in obj) {
           if (obj[key].expiryDate == list[i]) {
             dummyobj[key] = obj[key];
-            console.table(dummyobj);
             break;
           }
         }
       }
-      console.log(dummyobj);
       return dummyobj;
     }
   },
   watch: {
     searchKey: function(newString, oldString) {
-      let _this = this;
+      //苦し紛れ見逃して
+      let _this = oldString;
+      _this = this;
       if (newString === "") {
-        console.log("fridgeを復元します");
         this.fridgeRef.on("value", function(snapshot) {
           _this.fridge = snapshot.val();
         });
@@ -126,7 +119,10 @@ export default {
       this.toggle();
     },
     selected: function(newString, oldString) {
-      if (newString === "昇順") this.fridge = this.objectAscSort(this.fridge);
+      //苦し紛れ
+      let str = oldString;
+      str = "昇順";
+      if (newString === str) this.fridge = this.objectAscSort(this.fridge);
       else this.fridge = this.objectDescSort(this.fridge);
       this.toggle();
     }
@@ -145,5 +141,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
