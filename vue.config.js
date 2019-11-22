@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "./",
+  publicPath: "/ioroifridge/",
   assetsDir: "",
   outputDir: "dist"
 };

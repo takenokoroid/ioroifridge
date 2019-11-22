@@ -1,9 +1,11 @@
 <template>
   <div id="form">
-    <div v-for="(item,key) in fridge" :key="key">
+    <div id="item" v-for="(item,key) in fridge" :key="key">
       <food-data-list :item="item"></food-data-list>
-      <router-link to="/search" @click.native="deleteFood(key)">削除</router-link>
-      <router-link :to="{name:'change',params:{item:item,primaryKey:key}}">編集</router-link>
+      <div id="edit">
+        <router-link to="/search" @click.native="deleteFood(key)">削除</router-link>
+        <router-link :to="{name:'change',params:{item:item,primaryKey:key}}">編集</router-link>
+      </div>
     </div>
     <router-link to="send">追加に戻る</router-link>
   </div>
@@ -46,4 +48,20 @@ export default {
 </script>
 
 <style>
+#edit {
+  width: 130px;
+  margin: 0 0 0 50px;
+}
+#edit a {
+  margin: 10px;
+}
+#item {
+  padding: 5px 10px 5px 10px;
+  border: solid;
+  margin: 10px;
+  border-color: gray;
+}
+#item dl {
+  margin-bottom: 5px;
+}
 </style>

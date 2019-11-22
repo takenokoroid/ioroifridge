@@ -5,6 +5,7 @@ import sendData from "./views/SendFoodDataPage.vue";
 import change from "./views/EditFoodDatePage.vue";
 import home from "./views/FridgeHomePage.vue";
 import search from "./views/SearchFoodDataPage.vue";
+import header from "./components/Header.vue";
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ export default new Router({
       path: "/search",
       name: "search",
       component: search
+    },
+    {
+      path: "/header",
+      name: "header",
+      component: header
     }
   ]
 });
