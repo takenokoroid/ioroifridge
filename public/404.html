@@ -9,14 +9,15 @@
       let l = window.location;
       let port = l.port ? ":" + l.port : "";
       l.replace(
-        `${l.protocol}//${l.hostname}${port}/?p=${l.pathname
+        `${l.protocol}//${l.hostname}${port}${l.pathname
           .split("/")
-          .slice(0, 1 + segmentCount)
-          .join("/")}`
+          .slice(0, 1 + secmentCount)
+          .join("/")}/?p=/${l.pathname.split("/").slice(2)}`
       );
     </script>
   </head>
   <body>
     <h1>404 ERROR</h1>
+    <a href="/ioroifridge/">GOTOTOP</a>
   </body>
 </html>
