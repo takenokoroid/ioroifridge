@@ -7,26 +7,6 @@ admin.initializeApp();
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 //httpsにアクセスすると発火して関数内のコードが実行される
-
-function toDate(str) {
-  var arr = str.split("-");
-  return new Date(arr[0], arr[1] - 1, arr[2]);
-}
-
-function diffDate(dst) {
-  let diff = new Date().gettime() - dst.gettime();
-  let day = (diff / 1000) * 60 * 60 * 24;
-  return day;
-}
-
-function objSearch(obj) {
-  Object.keys(obj).forEach(key => {
-    let str = obj[key].expiryDate;
-    let day = diffDate(toDate(str));
-    if (day > 7) delete obj[key];
-  });
-}
-
 function getNowYMD() {
   let dt = new Date();
   let y = dt.getFullYear();
