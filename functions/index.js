@@ -27,10 +27,16 @@ function getNextYMD() {
   return result;
 }
 
-exports.postSlack = functions.https.onRequest((request, response) => {
+exports.reports = functions.pubsub
+  .schedule("every 24 hours")
+  .onRun(async context => {
+    reporting();
+  });
+
+function reporting() {
   let option = {
     method: "post",
-    baseURL: functions.config().slack.webhook_url,
+    baseURL: functions.config().slack.webhook_url_fridge,
     header: {
       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
     },
@@ -40,6 +46,7 @@ exports.postSlack = functions.https.onRequest((request, response) => {
   };
   let users = "init users";
   let showtext = "init showtext";
+  let str = "";
   const nowYMD = getNowYMD();
   const nextYMD = getNextYMD();
   let db = admin.database().ref("/fridge1");
@@ -49,11 +56,52 @@ exports.postSlack = functions.https.onRequest((request, response) => {
     .endAt(nextYMD);
   search.on("value", snapshot => {
     users = snapshot.val();
-    response.send(users);
-    showtext = "changed text";
+    Object.keys(users).forEach(key => {
+      str += `${users[key].name}、`;
+    });
+    showtext = str;
+    option.data = `payload={
+      "text": "今週で賞味期限が切れるのは
+      ${showtext}です。
+      お気をつけてください。",
+    }`;
+    axiosBase.request(option);
   });
-  option.data = `payload={
-    "text": "${showtext}",
-  }`;
-  axiosBase.request(option);
+}
+
+exports.postSlack = functions.https.onRequest((request, response) => {
+  let option = {
+    method: "post",
+    baseURL: functions.config().slack.webhook_url_fridge,
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    data: `payload={
+    "text": "test message",
+  }`
+  };
+  let users = "init users";
+  let showtext = "init showtext";
+  let str = "";
+  const nowYMD = getNowYMD();
+  const nextYMD = getNextYMD();
+  let db = admin.database().ref("/fridge1");
+  let search = db
+    .orderByChild("expiryDate")
+    .startAt(nowYMD)
+    .endAt(nextYMD);
+  search.on("value", snapshot => {
+    users = snapshot.val();
+    Object.keys(users).forEach(key => {
+      str += `${users[key].name}、`;
+    });
+    response.send(users);
+    showtext = str;
+    option.data = `payload={
+      "text": "今週で賞味期限が切れるのは
+      ${showtext}です。
+      お気をつけてください。",
+    }`;
+    axiosBase.request(option);
+  });
 });
