@@ -1,7 +1,14 @@
 .DS_Store
 node_modules
 dist
+# functions files
+etc/
+.eslintrc.json
+.gitignore
 
+# firebase files
+.firebaserc
+firebase.json
 # local env files
 .env
 .env.local
