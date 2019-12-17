@@ -54,19 +54,32 @@ function reporting() {
     .orderByChild("expiryDate")
     .startAt(nowYMD)
     .endAt(nextYMD);
-  search.on("value", snapshot => {
-    users = snapshot.val();
-    Object.keys(users).forEach(key => {
-      str += `${users[key].name}、`;
-    });
-    showtext = str;
-    option.data = `payload={
+  search
+    .once("value")
+    .then(snapdhot => {
+      users = snapshot.val();
+      Object.keys(users).forEach(key => {
+        str += `${users[key].name}、`;
+      });
+      showtext = str;
+      option.data = `payload={
       "text": "今週で賞味期限が切れるのは
       ${showtext}です。
       お気をつけてください。",
     }`;
-    axiosBase.request(option);
-  });
+      axiosBase.request(option);
+      return 0;
+    })
+    .catch(err => {
+      showtext = err;
+      showtext = "とくにありません";
+      option.data = `payload={
+      "text": "今週で賞味期限が切れるのは
+      ${showtext}。",
+    }`;
+      axiosBase.request(option);
+      return 0;
+    });
 }
 
 exports.postSlack = functions.https.onRequest((request, response) => {

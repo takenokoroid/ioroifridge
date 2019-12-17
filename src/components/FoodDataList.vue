@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "FoodDataList",
+name: "FoodDataList",
   props: {
     item: Object
   }
