@@ -56,7 +56,7 @@ function reporting() {
     .endAt(nextYMD);
   search
     .once("value")
-    .then(snapdhot => {
+    .then(snapshot => {
       users = snapshot.val();
       Object.keys(users).forEach(key => {
         str += `${users[key].name}、`;
