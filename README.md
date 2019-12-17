@@ -13,8 +13,11 @@
 
 ## 使い方
 githubpagesにデプロイしてるので、アクセスしてください。
+
 https://takenokoroid.github.io/ioroifridge/
+
 UIは単純なので操作も簡単だと思います
+
 Good Luck
 
 連絡は@takenokoroidまで
