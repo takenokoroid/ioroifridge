@@ -2,7 +2,7 @@
   <div>
     <li>
       <ul>
-        <router-link to="send" @click.native="addLocalStorage()">
+        <router-link to="search" @click.native="addLocalStorage()">
           <img :src="fridge.img" :alt="fridge.description" />
         </router-link>
       </ul>

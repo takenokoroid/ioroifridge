@@ -11,7 +11,7 @@
         <option>降順</option>
       </select>
     </div>
-    <router-link to="send">追加に戻る</router-link>
+    <router-link to="send">食べ物を追加する</router-link>
     <output-data :fridge="fridge" v-if="showOutput"></output-data>
   </div>
 </template>
