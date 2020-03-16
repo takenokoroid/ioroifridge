@@ -18,7 +18,9 @@ https://takenokoroid.github.io/ioroifridge/
 
 UIは単純なので操作も簡単だと思います
 
-Good Luck
+※※※バグ情報※※※
+初回ロード時に表示されないことがあります。
+その時は更新お願いします。
 
 連絡は@takenokoroidまで
 
